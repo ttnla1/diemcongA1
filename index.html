@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="vi"><head><script>window["__codeletBootstrap__"]=JSON.parse('{"A":"A","B":"20260916-03-7343f9b","C":{"Abril Fatface":"YACgEZbkUVE,0","Alfa Slab One":"YACgEYS9sJU,0","Anton":"YACgEcYqQ-A,0","Archivo":"YAHO2-t-jNE,0","Arial":"YAGyDvJ_4Ts,0","Bebas Neue":"YACgESME5ew,0","Bricolage Grotesque":"YAFyMcdwzpc,0","Canva Sans":"YAFLd8sKbwc,2","Caveat":"YALBs2ploWQ,0","Comic Sans MS":"YAHO2VMiyZo,0","Cormorant Garamond":"YAFdJhX-538,0","Courier New":"YAGzXiGs0_8,0","DM Sans":"YAD1aU3sLnI,0","DM Serif Display":"YAD1aYG82rc,0","Forum":"YACgEcnnqB4,0","Fraunces":"YAEul-FRQw4,0","Georgia":"YAGzXkO0pEM,0","Helvetica Neue":"YAFcf6CtJfI,0","Impact":"YAFcfnjI7Vk,0","Inter":"YAFdJvSyp_k,3","Iowan Old Style":"YAGNIFa8j9o,0","Jacques Francois":"YAHO2a5g66Q,0","JetBrains Mono":"YAFdJksXcAk,0","Libre Baskerville":"YACgEUFdPdA,0","Manrope":"YAHO2b2feC4,0","Merriweather":"YACgEXvHxxs,0","Montserrat":"YADLjI9qxTA,0","Nunito":"YACgEX8C5Gg,0","Oleo Script":"YACgEQQ14jI,0","Phantom Sans":"YAHO2E8Pb88,0","Playfair Display":"YACgEYmuCJE,0","Poppins":"YAFdJjbTu24,1","Press Start 2P":"YAFyGr-8pmQ,0","Quicksand":"YADWjpfPmdk,0","Raleway":"YACgEVg3xZg,0","Segoe UI":"YAHNdRD1Klw,0","Source Sans 3":"YAG4lO1Mj10,0","Spectral":"YAHO2rVUHIM,0","Times New Roman":"YAGzXW3gftg,0","Times":"YAGzXW3gftg,0","Ubuntu":"YACgERDU--Q,0","Work Sans":"YAGXhLOKv44,0","Yellowtail":"YACgEYG4kG4,0","ui-monospace":"YADlN8CFZ8Q,0","ui-sans-serif":"YACkoN-xg4g,0"}}');</script><script src="/_sdk/c21197326e9a1154.telemetry_sdk.js" integrity="sha512-Aqwl+NmLtKBcMQM4HY+W9lmBHa+zP5MqSEuYfCjkzt4xeOSv2xNz81cCp7JyXBVrY+zojg5o94FHY/R31v2d3Q=="></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Điểm Cộng</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.577.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#172554; --blue:#2563eb; --teal:#0f766e; --paper:#f7f9ff; --line:#dbe4f3; }
+    * { box-sizing:border-box; }
+    body { margin:0; width:100%; min-height:100%; font-family:"DM Sans",sans-serif; color:var(--ink); background:#f7f9ff; }
+    button, input { font:inherit; }
+    button:focus-visible, input:focus-visible { outline:3px solid #93c5fd; outline-offset:2px; }
+    .app-shell { width:100%; min-height:calc(100 * min(var(--vh, 1vh), 1vh)); background:radial-gradient(circle at 8% 3%,#dbeafe 0,transparent 27%),radial-gradient(circle at 96% 0,#ccfbf1 0,transparent 25%),#f7f9ff; }
+    .topbar { position:sticky; top:0; z-index:20; background:rgba(255,255,255,.93); backdrop-filter:blur(14px); border-bottom:1px solid #dbe4f3; }
+    .nav-btn { border:0; background:transparent; border-radius:14px; padding:10px 15px; font-weight:700; color:#64748b; transition:.2s; white-space:nowrap; }
+    .nav-btn:hover { background:#eff6ff; color:#1d4ed8; }
+    .nav-btn.active { background:#e0e7ff; color:#3730a3; box-shadow:inset 0 0 0 1px #c7d2fe; }
+    .panel { background:white; border:1px solid #dbe4f3; border-radius:22px; box-shadow:0 12px 32px rgba(30,64,175,.07); }
+    .field-label { display:block; font-size:.875rem; font-weight:700; color:#334155; margin-bottom:7px; }
+    .date-input { border:1px solid #cbd5e1; border-radius:12px; padding:10px 12px; color:#172554; min-height:44px; width:100%; background:#fff; }
+    .action-btn { border:0; border-radius:12px; min-height:40px; padding:8px 13px; font-weight:700; transition:.2s; }
+    .action-btn:hover { transform:translateY(-1px); filter:brightness(.98); }
+    .primary-btn { background:#2563eb; color:white; box-shadow:0 8px 18px rgba(37,99,235,.2); }
+    .secondary-btn { background:#eef2ff; color:#3730a3; }
+    .danger-btn { background:#fff1f2; color:#be123c; }
+    .quick-btn { background:#f1f5f9; color:#334155; border:1px solid #dbe4f3; min-height:34px; padding:5px 9px; border-radius:9px; font-weight:700; font-size:.78rem; }
+    .quick-btn:hover { background:#dbeafe; color:#1d4ed8; }
+    .score-input { width:68px; min-height:38px; border:1px solid #bfdbfe; border-radius:9px; text-align:center; font-weight:800; color:#1e3a8a; }
+    .data-table { width:100%; border-collapse:separate; border-spacing:0; min-width:720px; }
+    .data-table th { background:#eff6ff; color:#1e3a8a; font-size:.77rem; letter-spacing:.04em; text-align:left; padding:12px; border-bottom:1px solid #bfdbfe; }
+    .data-table td { padding:10px 12px; border-bottom:1px solid #edf2f7; vertical-align:middle; }
+    .data-table tr:last-child td { border-bottom:0; }
+    .data-table tbody tr:hover { background:#f8fbff; }
+    .table-scroll { overflow-x:auto; border:1px solid #dbe4f3; border-radius:15px; }
+    .score-controls { display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+    .mini-btn { border:1px solid #cbd5e1; background:#fff; color:#334155; border-radius:9px; width:34px; height:34px; font-size:1.05rem; font-weight:800; }
+    .mini-btn:hover { background:#dbeafe; color:#1d4ed8; }
+    .toast { position:fixed; z-index:50; right:20px; bottom:20px; max-width:340px; padding:13px 17px; border-radius:14px; color:white; font-weight:700; box-shadow:0 16px 32px rgba(15,23,42,.2); transform:translateY(100px); opacity:0; transition:.25s; }
+    .toast.show { transform:translateY(0); opacity:1; }
+    .toast.success { background:#047857; } .toast.error { background:#be123c; }
+    .symbol-wrap { display:flex; gap:5px; flex-wrap:wrap; align-items:center; min-height:28px; }
+    .point-square { width:23px; height:23px; border:2px solid #2563eb; background:#eff6ff; position:relative; display:inline-block; border-radius:2px; flex:0 0 auto; }
+    .point-square::after { content:""; position:absolute; width:2px; height:29px; background:#2563eb; left:9px; top:-5px; transform:rotate(-45deg); transform-origin:center; }
+    .point-stroke { width:3px; height:25px; background:#0f766e; border-radius:4px; display:inline-block; flex:0 0 auto; }
+    .history-row { border:1px solid #dbe4f3; border-radius:14px; padding:12px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .tab-btn { border:0; background:transparent; padding:12px 16px; font-weight:800; color:#64748b; border-bottom:3px solid transparent; }
+    .tab-btn.active { color:#1d4ed8; border-bottom-color:#2563eb; }
+    .modal-backdrop { position:fixed; inset:0; z-index:60; background:rgba(15,23,42,.48); display:none; align-items:center; justify-content:center; padding:20px; }
+    .modal-backdrop.open { display:flex; }
+    .modal-card { width:min(440px,100%); background:#fff; border-radius:22px; box-shadow:0 24px 60px rgba(15,23,42,.3); padding:24px; }
+    .hidden-view { display:none !important; }
+    @media (max-width:640px) {
+      .topbar-inner { align-items:flex-start; flex-direction:column; gap:10px; }
+      .nav-wrap { width:100%; overflow-x:auto; }
+      .history-row { align-items:flex-start; flex-direction:column; }
+      .history-actions { width:100%; display:grid; grid-template-columns:repeat(3,1fr); }
+    }
+  </style>
+  <script src="/_sdk/efe904fe8a212716.data_sdk.js" type="text/javascript" integrity="sha512-oiO0pmn5llS1uDeB2l690YywxqOe/a0U1kzY6RGaLZXtyh9YjTk1CUoK/bJUugc1QbUaJMJ3IE1MtpNY5NBZCw=="></script>
+  <script src="/_sdk/fab616ff82261ec3.resizing_sdk.js" type="text/javascript" integrity="sha512-6HMQCcUK6kDKuW59G/ZuFQDLjI3pOzz+2hgX6MaEV1izmYwYrrxv76nfirS4geYvvwnfUYWKbXBg/ycD2lR6jw=="></script>
+ </head>
+ <body data-template-id="__page-root" style="background: radial-gradient(circle at 8% 3%, rgb(219, 234, 254) 0%, rgb(247, 249, 255) 52%);">
+  <div class="app-shell">
+   <header data-template-id="app-header" class="canva-header topbar" style="background: rgb(255, 255, 255);">
+    <div class="topbar-inner w-full max-w-7xl mx-auto px-4 py-3 flex justify-between">
+     <div>
+      <p data-template-id="app-kicker" class="canva-text m-0 text-xs font-bold tracking-widest uppercase" style="color: rgb(15, 118, 110); font-weight: 700; font-style: normal; font-size: 15px; letter-spacing: 0.08rem;">CÔNG CỤ LỚP HỌC</p>
+      <h1 data-template-id="app-name" class="canva-text m-0 font-extrabold" style="color: rgb(23, 37, 84); font-weight: 800; font-style: normal; font-size: 30px;">Quản Lý Điểm Cộng</h1>
+     </div>
+     <nav class="nav-wrap flex gap-2" aria-label="Điều hướng ứng dụng"><button data-template-id="nav-entry" class="canva-button nav-btn active" type="button" data-view="entry" style="background: rgb(224, 231, 255); color: rgb(55, 48, 163); font-weight: 700; font-style: normal; font-size: 15px;">📝 Nhập điểm</button> <button data-template-id="nav-summary" class="canva-button nav-btn" type="button" data-view="summary" style="background: rgb(255, 255, 255); color: rgb(71, 85, 105); font-weight: 700; font-style: normal; font-size: 15px;">📊 Tổng hợp</button>
+     </nav>
+    </div>
+   </header>
+   <main class="w-full max-w-7xl mx-auto px-4 py-7">
+    <section id="entry-view" aria-labelledby="entry-heading">
+     <div class="mb-6">
+      <p data-template-id="entry-eyebrow" class="canva-text text-sm font-bold uppercase tracking-widest mb-2" style="color: rgb(15, 118, 110); font-weight: 700; font-style: normal; font-size: 15px;">LỚP HỌC · ĐIỂM CỘNG</p>
+      <h2 id="entry-heading" data-template-id="entry-title" class="canva-text font-extrabold m-0" style="color: rgb(23, 37, 84); font-weight: 800; font-style: normal; font-size: 23px;">⭐ NHẬP ĐIỂM CỘNG</h2>
+     </div>
+     <section data-template-id="entry-date-panel" class="canva-panel panel p-5 mb-5" style="background: rgb(255, 255, 255);">
+      <div class="flex flex-col sm:flex-row sm:items-end gap-4">
+       <div class="w-full sm:max-w-xs"><label data-template-id="entry-date-label" class="canva-text field-label" for="entry-date" style="color: rgb(51, 65, 85); font-weight: 700; font-style: normal; font-size: 15px;">📅 Ngày nhập điểm</label> <input id="entry-date" class="date-input" type="date">
+       </div>
+       <p data-template-id="entry-date-help" class="canva-text text-sm text-slate-500 m-0" style="color: rgb(100, 116, 139); font-weight: 400; font-style: normal; font-size: 15px;">Chọn ngày để xem hoặc nhập điểm cộng cho cả lớp.</p>
+      </div>
+     </section>
+     <section data-template-id="entry-table-panel" class="canva-panel panel p-4 sm:p-5" style="background: rgb(255, 255, 255);">
+      <div class="flex flex-col sm:flex-row justify-between gap-3 mb-4">
+       <div>
+        <h3 data-template-id="entry-table-title" class="canva-text font-extrabold m-0" style="color: rgb(23, 37, 84); font-weight: 800; font-style: normal; font-size: 18px;">Danh sách điểm cộng</h3>
+        <p data-template-id="entry-table-help" class="canva-text text-sm text-slate-500 mt-1 mb-0" style="color: rgb(100, 116, 139); font-weight: 400; font-style: normal; font-size: 15px;">Nhập trực tiếp hoặc dùng các nút điều chỉnh nhanh.</p>
+       </div><button id="save-scores" data-template-id="save-scores-button" class="canva-button action-btn primary-btn" type="button" style="background: rgb(37, 99, 235); color: rgb(255, 255, 255); font-weight: 800; font-style: normal; font-size: 15px;">💾 LƯU ĐIỂM CỘNG</button>
+      </div>
+      <p id="entry-error" class="hidden text-sm font-bold text-rose-700 mb-3" aria-live="polite"></p>
+      <div class="table-scroll">
+       <table class="data-table" aria-label="Bảng nhập điểm cộng">
+        <thead>
+         <tr>
+          <th data-template-id="entry-col-number" class="canva-text w-16" style="color: rgb(30, 58, 138); font-weight: 700; font-style: normal; font-size: 15px;">STT</th>
+          <th data-template-id="entry-col-name" class="canva-text" style="color: rgb(30, 58, 138); font-weight: 700; font-style: normal; font-size: 15px;">HỌ VÀ TÊN</th>
+          <th data-template-id="entry-col-score" class="canva-text w-80" style="color: rgb(30, 58, 138); font-weight: 700; font-style: normal; font-size: 15px;">ĐIỂM CỘNG</th>
+         </tr>
+        </thead>
+        <tbody id="entry-table-body"></tbody>
+       </table>
+      </div>
+     </section>
+     <section class="mt-7" aria-labelledby="history-heading">
+      <div class="mb-4">
+       <h2 id="history-heading" data-template-id="history-title" class="canva-text font-extrabold m-0" style="color: rgb(23, 37, 84); font-weight: 800; font-style: normal; font-size: 23px;">📅 LỊCH SỬ NHẬP ĐIỂM</h2>
+       <p data-template-id="history-help" class="canva-text text-sm text-slate-500 mt-1" style="color: rgb(100, 116, 139); font-weight: 400; font-style: normal; font-size: 15px;">Tất cả ngày đã lưu được sắp xếp từ mới nhất đến cũ nhất.</p>
+      </div>
+      <div id="history-list" class="space-y-3"></div>
+      <section id="history-preview" class="hidden-view panel p-5 mt-5" aria-labelledby="history-preview-heading">
+       <div class="flex justify-between gap-4 mb-4">
+        <div>
+         <h3 id="history-preview-heading" data-template-id="history-preview-title" class="canva-text font-extrabold m-0" style="color: rgb(23, 37, 84); font-weight: 800; font-style: normal; font-size: 18px;">Bảng điểm trong lịch sử</h3>
+         <p id="history-preview-date" class="text-sm text-slate-500 mt-1 mb-0"></p>
+        </div><button id="close-preview" data-template-id="history-close-button" class="canva-button action-btn secondary-btn" type="button" style="background: rgb(238, 242, 255); color: rgb(55, 48, 163); font-weight: 700; font-style: normal; font-size: 15px;">Đóng</button>
+       </div>
+       <div class="table-scroll">
+        <table class="data-table" aria-label="Bảng điểm lịch sử">
+         <thead>
+          <tr>
+           <th>STT</th>
+           <th>HỌ VÀ TÊN</th>
+           <th>ĐIỂM CỘNG</th>
+          </tr>
+         </thead>
+         <tbody id="history-preview-body"></tbody>
+        </table>
+       </div>
+      </section>
+     </section>
+    </section>
+    <section id="summary-view" class="hidden-view" aria-labelledby="summary-heading">
+     <div class="mb-6">
+      <p data-template-id="summary-eyebrow" class="canva-text text-sm font-bold uppercase tracking-widest mb-2" style="color: rgb(15, 118, 110); font-weight: 700; font-style: normal; font-size: 15px;">BÁO CÁO · THEO DÕI</p>
+      <h2 id="summary-heading" data-template-id="summary-title" class="canva-text font-extrabold m-0" style="color: rgb(23, 37, 84); font-weight: 800; font-style: normal; font-size: 23px;">📊 TỔNG HỢP ĐIỂM CỘNG</h2>
+     </div>
+     <section data-template-id="filter-panel" class="canva-panel panel p-5 mb-5" style="background: rgb(255, 255, 255);">
+      <h3 data-template-id="filter-title" class="canva-text font-extrabold m-0 mb-3" style="color: rgb(23, 37, 84); font-weight: 800; font-style: normal; font-size: 18px;">Lọc khoảng thời gian</h3>
+      <div class="flex flex-wrap gap-2 mb-5"><button data-template-id="quick-seven" class="canva-button quick-btn filter-quick" type="button" data-range="7" style="background: rgb(241, 245, 249); color: rgb(51, 65, 85); font-weight: 700; font-style: normal; font-size: 15px;">7 ngày gần nhất</button> <button data-template-id="quick-fourteen" class="canva-button quick-btn filter-quick" type="button" data-range="14" style="background: rgb(241, 245, 249); color: rgb(51, 65, 85); font-weight: 700; font-style: normal; font-size: 15px;">14 ngày gần nhất</button> <button data-template-id="quick-thirty" class="canva-button quick-btn filter-quick" type="button" data-range="30" style="background: rgb(241, 245, 249); color: rgb(51, 65, 85); font-weight: 700; font-style: normal; font-size: 15px;">30 ngày gần nhất</button> <button data-template-id="quick-month" class="canva-button quick-btn filter-quick" type="button" data-range="month" style="background: rgb(241, 245, 249); color: rgb(51, 65, 85); font-weight: 700; font-style: normal; font-size: 15px;">Từ đầu tháng</button> <button data-template-id="quick-all" class="canva-button quick-btn filter-quick" type="button" data-range="all" style="background: rgb(241, 245, 249); color: rgb(51, 65, 85); font-weight: 700; font-style: normal; font-size: 15px;">Tất cả dữ liệu</button>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4 max-w-2xl">
+       <div><label data-template-id="summary-start-label" class="canva-text field-label" for="summary-start" style="color: rgb(51, 65, 85); font-weight: 700; font-style: normal; font-size: 15px;">📅 Từ ngày</label> <input id="summary-start" class="date-input" type="date">
+       </div>
+       <div><label data-template-id="summary-end-label" class="canva-text field-label" for="summary-end" style="color: rgb(51, 65, 85); font-weight: 700; font-style: normal; font-size: 15px;">📅 Đến ngày</label> <input id="summary-end" class="date-input" type="date">
+       </div>
+      </div>
+      <p id="summary-message" class="text-sm font-bold mt-4 mb-0" aria-live="polite"></p>
+     </section>
+     <section id="stats-grid" class="grid md:grid-cols-4 gap-3 mb-5">
+      <article data-template-id="stat-period-card" class="canva-card panel p-4" style="background: rgb(255, 255, 255);">
+       <p data-template-id="stat-period-label" class="canva-text text-xs font-bold uppercase tracking-wide m-0" style="color: rgb(100, 116, 139); font-weight: 700; font-style: normal; font-size: 15px;">📅 KHOẢNG THỜI GIAN</p>
+       <p id="stat-period" class="font-extrabold mt-2 mb-0"></p>
+      </article>
+      <article data-template-id="stat-class-card" class="canva-card panel p-4" style="background: rgb(255, 255, 255);">
+       <p data-template-id="stat-class-label" class="canva-text text-xs font-bold uppercase tracking-wide m-0" style="color: rgb(100, 116, 139); font-weight: 700; font-style: normal; font-size: 15px;">👥 SĨ SỐ</p>
+       <p data-template-id="stat-class-value" class="canva-text font-extrabold mt-2 mb-0" style="color: rgb(23, 37, 84); font-weight: 800; font-style: normal; font-size: 15px;">43 học sinh</p>
+      </article>
+      <article data-template-id="stat-total-card" class="canva-card panel p-4" style="background: rgb(255, 255, 255);">
+       <p data-template-id="stat-total-label" class="canva-text text-xs font-bold uppercase tracking-wide m-0" style="color: rgb(100, 116, 139); font-weight: 700; font-style: normal; font-size: 15px;">⭐ TỔNG ĐIỂM CỘNG</p>
+       <p id="stat-total" class="font-extrabold mt-2 mb-0"></p>
+      </article>
+      <article data-template-id="stat-days-card" class="canva-card panel p-4" style="background: rgb(255, 255, 255);">
+       <p data-template-id="stat-days-label" class="canva-text text-xs font-bold uppercase tracking-wide m-0" style="color: rgb(100, 116, 139); font-weight: 700; font-style: normal; font-size: 15px;">📈 SỐ NGÀY ĐÃ NHẬP</p>
+       <p id="stat-days" class="font-extrabold mt-2 mb-0"></p>
+      </article>
+     </section>
+     <section data-template-id="summary-table-panel" class="canva-panel panel overflow-hidden" style="background: rgb(255, 255, 255);">
+      <div class="border-b border-slate-200 px-3 flex gap-1 overflow-x-auto"><button data-template-id="number-tab" class="canva-button tab-btn active" type="button" data-tab="number" style="color: rgb(29, 78, 216); font-weight: 800; font-style: normal; font-size: 15px;">🔢 TỔNG HỢP THEO SỐ</button> <button data-template-id="visual-tab" class="canva-button tab-btn" type="button" data-tab="visual" style="color: rgb(100, 116, 139); font-weight: 800; font-style: normal; font-size: 15px;">◼️ TỔNG HỢP THEO HÌNH</button>
+      </div>
+      <div id="number-tab-panel" class="p-4 sm:p-5">
+       <div class="flex flex-col sm:flex-row gap-3 justify-between sm:items-center mb-4">
+        <p data-template-id="number-tab-help" class="canva-text text-sm text-slate-500 m-0" style="color: rgb(100, 116, 139); font-weight: 400; font-style: normal; font-size: 15px;">Tổng điểm cộng của từng học sinh trong khoảng thời gian đã chọn.</p><button id="export-number" data-template-id="export-number-button" class="canva-button action-btn primary-btn" type="button" style="background: rgb(37, 99, 235); color: rgb(255, 255, 255); font-weight: 800; font-style: normal; font-size: 15px;">🖼️ XUẤT ẢNH DẠNG SỐ</button>
+       </div>
+       <div class="table-scroll">
+        <table class="data-table" aria-label="Tổng hợp điểm cộng dạng số">
+         <thead>
+          <tr>
+           <th>STT</th>
+           <th>HỌ VÀ TÊN</th>
+           <th>TỔNG ĐIỂM CỘNG</th>
+          </tr>
+         </thead>
+         <tbody id="number-summary-body"></tbody>
+        </table>
+       </div>
+       <p id="number-class-total" class="mt-4 mb-0 font-extrabold text-blue-800"></p>
+      </div>
+      <div id="visual-tab-panel" class="hidden-view p-4 sm:p-5">
+       <div class="flex flex-col sm:flex-row gap-3 justify-between sm:items-center mb-4">
+        <div>
+         <p data-template-id="visual-legend-title" class="canva-text text-sm font-bold text-slate-600 m-0 mb-2" style="color: rgb(71, 85, 105); font-weight: 700; font-style: normal; font-size: 15px;">Chú thích biểu diễn</p>
+         <div class="flex flex-wrap items-center gap-4 text-sm font-semibold text-slate-600"><span class="flex gap-2 items-center"><span class="point-square"></span><span data-template-id="visual-square-legend" class="canva-text" style="color: rgb(71, 85, 105); font-weight: 700; font-style: normal; font-size: 15px;">= 5 điểm</span></span> <span class="flex gap-2 items-center"><span class="point-stroke"></span><span data-template-id="visual-stroke-legend" class="canva-text" style="color: rgb(71, 85, 105); font-weight: 700; font-style: normal; font-size: 15px;">= 1 điểm</span></span>
+         </div>
+        </div><button id="export-visual" data-template-id="export-visual-button" class="canva-button action-btn primary-btn" type="button" style="background: rgb(37, 99, 235); color: rgb(255, 255, 255); font-weight: 800; font-style: normal; font-size: 15px;">🖼️ XUẤT ẢNH DẠNG HÌNH</button>
+       </div>
+       <div class="table-scroll">
+        <table class="data-table" aria-label="Tổng hợp điểm cộng dạng hình">
+         <thead>
+          <tr>
+           <th>STT</th>
+           <th>HỌ VÀ TÊN</th>
+           <th>BIỂU DIỄN ĐIỂM CỘNG</th>
+          </tr>
+         </thead>
+         <tbody id="visual-summary-body"></tbody>
+        </table>
+       </div>
+       <p id="visual-class-total" class="mt-4 mb-0 font-extrabold text-blue-800"></p>
+      </div>
+     </section>
+    </section>
+   </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="confirm-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+   <div class="modal-card">
+    <h2 id="confirm-title" data-template-id="confirm-title-text" class="canva-text font-extrabold m-0" style="color: rgb(23, 37, 84); font-weight: 800; font-style: normal; font-size: 23px;">Xác nhận thao tác</h2>
+    <p id="confirm-message" class="mt-3 text-slate-600"></p>
+    <div class="flex justify-end gap-3 mt-6"><button id="confirm-cancel" data-template-id="confirm-cancel-button" class="canva-button action-btn secondary-btn" type="button" style="background: rgb(238, 242, 255); color: rgb(55, 48, 163); font-weight: 700; font-style: normal; font-size: 15px;">Hủy</button> <button id="confirm-accept" data-template-id="confirm-accept-button" class="canva-button action-btn danger-btn" type="button" style="background: rgb(255, 241, 242); color: rgb(190, 18, 60); font-weight: 700; font-style: normal; font-size: 15px;">Xác nhận</button>
+    </div>
+   </div>
+  </div>
+  <template id="entry-row-template">
+   <tr>
+    <td class="student-number font-bold text-slate-400"></td>
+    <td class="student-name font-bold text-slate-700"></td>
+    <td>
+     <div class="score-controls"><button class="mini-btn score-change" type="button" data-change="-1" aria-label="Giảm 1 điểm">−</button> <input class="score-input" type="text" inputmode="numeric" aria-label="Điểm cộng"> <button class="mini-btn score-change" type="button" data-change="1" aria-label="Tăng 1 điểm">+</button> <button class="quick-btn score-change" type="button" data-change="1">+1</button> <button class="quick-btn score-change" type="button" data-change="2">+2</button> <button class="quick-btn score-change" type="button" data-change="3">+3</button>
+     </div></td>
+   </tr>
+  </template>
+  <script src="/_sdk/d80b7fc77c36e544.editing_sdk.js" integrity="sha512-G1c7mLHfqSpyYPFnCMpb8X52/iP9EEJ4y/O8pmYPhWe33R+uuxRRWVYdXU2F+N4m0Y2/2lhbJGfxoPXkVhIZzw=="></script>
+  <script>
+    const STORAGE_KEY = "classPlusPointsData";
+    const STUDENTS = [
+      "HUỲNH PHÚC AN","PHÙ LÝ GIA AN","LÊ THANH QUẾ ANH","NGUYỄN NGỌC TRÂM ANH","NGUYỄN HUỲNH GIA BẢO","VŨ HOÀNG GIA CÁT","TRẦN NGỌC MINH CHÂU","TRẦN MINH DUY","NGUYỄN HOÀNG ĐẠT","NGÔ MINH ĐÔNG","NGUYỄN NGỌC ĐỨC","LÊ NGÂN HẠNH","PHẠM NGỌC HÂN","TÔ THUẬN HƯNG","NGUYỄN MINH KHANG","TRẦN ĐĂNG KHOA","VĂN BÙI ĐĂNG KHÔI","NGUYỄN HỒNG MỸ KIM","TRỊNH THỊ NGỌC LINH","NGUYỄN TIỂU LONG","NGUYỄN KHẮC HOÀNG MINH","LÊ NGUYỄN THẢO MY","TRƯƠNG GIA NGHI","NGUYỄN TRẦN NHÂN","NGUYỄN NGỌC BẢO NHI","TRƯƠNG GIA PHÁT","NGÔ GIA PHÚ","CAO MINH PHÚC","ĐOÀN NHẬT QUANG","NGUYỄN MINH QUÂN","VŨ THÁI TÂM","BÙI LÊ NHƯ THẢO","NGUYỄN TRỊNH THIÊN","LÂM HOÀNG GIA THUẬN","LƯU BẢO THY","VÕ MINH TRÍ","LÊ THỦY THIÊN TÚ","NGUYỄN CÁT TƯỜNG","TẤT TẤN VĨ","LÊ NGỌC TƯỜNG VY","NGUYỄN NGỌC HÀ VY","TRỊNH TUẤN VỸ","NGUYỄN THỊ THẢO YẾN"
+    ];
+    let currentScores = Array(43).fill("");
+    let activeTab = "number";
+    let confirmAction = null;
+
+    const $ = (id) => document.getElementById(id);
+    const localISO = () => {
+      const d = new Date(); const off = d.getTimezoneOffset();
+      return new Date(d.getTime() - off * 60000).toISOString().slice(0,10);
+    };
+    const displayDate = (iso) => iso ? iso.split("-").reverse().join("/") : "";
+    const validScore = (value) => value === "" || /^(0|[1-9]\d*)$/.test(String(value));
+    const normalize = (value) => value === "" ? 0 : Number(value);
+
+    function getData() {
+      try {
+        const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+        return raw && typeof raw === "object" ? raw : {};
+      } catch { return {}; }
+    }
+    function setData(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+    function cleanScores(scores) {
+      return Array.from({length:43}, (_,i) => {
+        const v = scores && scores[i] !== undefined ? Number(scores[i]) : 0;
+        return Number.isInteger(v) && v >= 0 ? v : 0;
+      });
+    }
+    function showToast(text, type="success") {
+      const toast = $("toast"); toast.textContent = text; toast.className = "toast " + type + " show";
+      clearTimeout(showToast.timer); showToast.timer = setTimeout(()=>toast.classList.remove("show"), 3200);
+    }
+    function showConfirm(message, action) {
+      $("confirm-message").textContent = message; confirmAction = action; $("confirm-modal").classList.add("open"); $("confirm-accept").focus();
+    }
+    function closeConfirm() { $("confirm-modal").classList.remove("open"); confirmAction = null; }
+
+    function renderEntryRows() {
+      const body = $("entry-table-body"); body.innerHTML = "";
+      const tpl = $("entry-row-template");
+      STUDENTS.forEach((name, i) => {
+        const node = tpl.content.cloneNode(true);
+        const row = node.querySelector("tr"), input = node.querySelector(".score-input");
+        row.dataset.index = i; node.querySelector(".student-number").textContent = i + 1; node.querySelector(".student-name").textContent = name;
+        input.value = currentScores[i];
+        input.addEventListener("input", () => {
+          if (!validScore(input.value)) { $("entry-error").textContent = "Điểm cộng phải là số 0 hoặc số dương."; $("entry-error").classList.remove("hidden"); }
+          else { $("entry-error").classList.add("hidden"); currentScores[i] = input.value; }
+        });
+        input.addEventListener("blur", () => { if (input.value === "") currentScores[i] = ""; });
+        node.querySelectorAll(".score-change").forEach(btn => btn.addEventListener("click", () => {
+          const val = Math.max(0, normalize(currentScores[i]) + Number(btn.dataset.change));
+          currentScores[i] = String(val); input.value = val; $("entry-error").classList.add("hidden");
+        }));
+        body.appendChild(node);
+      });
+    }
+    function loadSelectedDate() {
+      const date = $("entry-date").value;
+      const record = getData()[date];
+      currentScores = record ? cleanScores(record.scores).map(String) : Array(43).fill("");
+      renderEntryRows();
+      $("entry-error").classList.add("hidden");
+    }
+    function saveScores() {
+      const inputs = [...document.querySelectorAll(".score-input")];
+      if (inputs.some(input => !validScore(input.value))) {
+        $("entry-error").textContent = "Điểm cộng phải là số 0 hoặc số dương."; $("entry-error").classList.remove("hidden"); return;
+      }
+      const date = $("entry-date").value;
+      if (!date) return;
+      const commit = () => {
+        const data = getData();
+        data[date] = { date, scores: cleanScores(inputs.map(i => i.value)) };
+        setData(data); currentScores = cleanScores(inputs.map(i => i.value)).map(String);
+        renderHistory(); renderSummary(); showToast("Đã lưu điểm cộng thành công!");
+      };
+      if (getData()[date]) showConfirm("Dữ liệu của ngày " + displayDate(date) + " sẽ được thay thế. Bạn có muốn tiếp tục?", commit);
+      else commit();
+    }
+    function dailyTotal(record) { return cleanScores(record.scores).reduce((a,b)=>a+b,0); }
+    function renderHistory() {
+      const list = $("history-list"), data = getData(), dates = Object.keys(data).sort((a,b)=>b.localeCompare(a));
+      list.innerHTML = "";
+      if (!dates.length) {
+        const p = document.createElement("p"); p.textContent = "Chưa có dữ liệu điểm cộng."; p.className = "text-slate-500 text-sm py-4"; list.appendChild(p); return;
+      }
+      dates.forEach(date => {
+        const row = document.createElement("article"); row.className = "history-row bg-white";
+        const info = document.createElement("p"); info.className = "font-bold text-slate-700 m-0";
+        info.textContent = displayDate(date) + " — Tổng điểm trong ngày: " + dailyTotal(data[date]);
+        const actions = document.createElement("div"); actions.className = "history-actions flex gap-2";
+        [["Xem","secondary-btn",()=>showHistory(date)],["Chỉnh sửa","secondary-btn",()=>{ $("entry-date").value=date; loadSelectedDate(); window.scrollTo({top:0,behavior:"smooth"}); }],["Xóa","danger-btn",()=>showConfirm("Bạn có chắc chắn muốn xóa dữ liệu điểm cộng của ngày " + displayDate(date) + "?",()=>{ const d=getData(); delete d[date]; setData(d); renderHistory(); renderSummary(); $("history-preview").classList.add("hidden-view"); showToast("Đã xóa dữ liệu của ngày " + displayDate(date) + "."); })]].forEach(([text,cls,fn])=>{
+          const b=document.createElement("button"); b.type="button"; b.className="action-btn "+cls+" text-sm"; b.textContent=text; b.addEventListener("click",fn); actions.appendChild(b);
+        });
+        row.append(info,actions); list.appendChild(row);
+      });
+    }
+    function showHistory(date) {
+      const record=getData()[date]; $("history-preview-date").textContent="Ngày " + displayDate(date);
+      const body=$("history-preview-body"); body.innerHTML="";
+      cleanScores(record.scores).forEach((score,i)=>{ const tr=document.createElement("tr"); tr.innerHTML="<td>"+(i+1)+"</td><td class='font-bold text-slate-700'></td><td class='font-extrabold text-blue-800'>"+score+"</td>"; tr.children[1].textContent=STUDENTS[i]; body.appendChild(tr); });
+      $("history-preview").classList.remove("hidden-view"); $("history-preview").scrollIntoView({behavior:"smooth",block:"nearest"});
+    }
+
+    function filteredSummary() {
+      const start=$("summary-start").value, end=$("summary-end").value, data=getData();
+      if (!start || !end || start>end) return {scores:Array(43).fill(0), total:0, days:0, start, end};
+      const records=Object.keys(data).filter(d=>d>=start&&d<=end).map(d=>data[d]);
+      const scores=Array(43).fill(0);
+      records.forEach(r=>cleanScores(r.scores).forEach((v,i)=>scores[i]+=v));
+      return {scores,total:scores.reduce((a,b)=>a+b,0),days:records.length,start,end};
+    }
+    function renderSymbols(score) {
+      const wrap=document.createElement("div"); wrap.className="symbol-wrap";
+      for(let i=0;i<Math.floor(score/5);i++){ const square=document.createElement("span"); square.className="point-square"; wrap.appendChild(square); }
+      for(let i=0;i<score%5;i++){ const stroke=document.createElement("span"); stroke.className="point-stroke"; wrap.appendChild(stroke); }
+      return wrap;
+    }
+    function renderSummary() {
+      const {scores,total,days,start,end}=filteredSummary();
+      const msg=$("summary-message");
+      if (!start || !end) { msg.textContent="Vui lòng chọn đầy đủ khoảng thời gian để xem tổng hợp."; msg.className="text-sm font-bold text-amber-700 mt-4 mb-0"; }
+      else if (start>end) { msg.textContent="Ngày bắt đầu không thể lớn hơn ngày kết thúc."; msg.className="text-sm font-bold text-rose-700 mt-4 mb-0"; }
+      else if (!days) { msg.textContent="Chưa có dữ liệu điểm cộng."; msg.className="text-sm font-bold text-slate-500 mt-4 mb-0"; }
+      else msg.textContent="";
+      $("stat-period").textContent=start&&end ? displayDate(start)+" → "+displayDate(end) : "Chưa chọn";
+      $("stat-total").textContent=total+" điểm"; $("stat-days").textContent=days+" ngày";
+      const num=$("number-summary-body"), visual=$("visual-summary-body"); num.innerHTML=""; visual.innerHTML="";
+      STUDENTS.forEach((name,i)=>{
+        const tr=document.createElement("tr"); tr.innerHTML="<td>"+(i+1)+"</td><td class='font-bold text-slate-700'></td><td class='font-extrabold text-blue-800'>"+scores[i]+"</td>"; tr.children[1].textContent=name; num.appendChild(tr);
+        const vr=document.createElement("tr"); const n=document.createElement("td"); n.textContent=i+1; const nm=document.createElement("td"); nm.textContent=name; nm.className="font-bold text-slate-700"; const sym=document.createElement("td"); sym.appendChild(renderSymbols(scores[i])); vr.append(n,nm,sym); visual.appendChild(vr);
+      });
+      const totalText="TỔNG ĐIỂM CỘNG CỦA CẢ LỚP: "+total;
+      $("number-class-total").textContent=totalText; $("visual-class-total").textContent=totalText;
+    }
+    function setQuickRange(range) {
+      const today=localISO(), d=new Date(today+"T12:00:00");
+      let start="";
+      if(range==="all"){
+        const dates=Object.keys(getData()).sort(); if(!dates.length){ $("summary-start").value=""; $("summary-end").value=""; renderSummary(); return; } start=dates[0]; $("summary-end").value=dates[dates.length-1];
+      } else {
+        if(range==="month") d.setDate(1); else d.setDate(d.getDate()-Number(range)+1);
+        start=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); $("summary-end").value=today;
+      }
+      $("summary-start").value=start; renderSummary();
+    }
+
+    function exportPNG(kind) {
+      const {scores,total,start,end}=filteredSummary();
+      if(!start||!end||start>end){ showToast("Vui lòng chọn khoảng thời gian hợp lệ trước khi xuất ảnh.","error"); return; }
+      const width=1600, rowH=42, height=250+43*rowH+80, esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+      let svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect width="100%" height="100%" fill="#ffffff"/><style>text{font-family:'DM Sans',sans-serif;fill:#172554}.head{font-weight:800}.small{font-size:20px}.row{font-size:19px}</style><text x="800" y="55" text-anchor="middle" font-size="31" class="head">📊 TỔNG HỢP ĐIỂM CỘNG</text><text x="80" y="95" class="small">Khoảng thời gian: Từ ngày ${displayDate(start)} đến ngày ${displayDate(end)}</text>`;
+      if(kind==="visual") svg+=`<rect x="80" y="115" width="22" height="22" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/><line x1="80" y1="115" x2="102" y2="137" stroke="#2563eb" stroke-width="2"/><text x="114" y="133" class="small">= 5 điểm</text><line x1="250" y1="115" x2="250" y2="137" stroke="#0f766e" stroke-width="3"/><text x="264" y="133" class="small">= 1 điểm</text>`;
+      const top=kind==="visual"?165:125;
+      svg+=`<rect x="60" y="${top}" width="1480" height="40" fill="#dbeafe"/><text x="85" y="${top+27}" class="head small">STT</text><text x="180" y="${top+27}" class="head small">HỌ VÀ TÊN</text><text x="1060" y="${top+27}" class="head small">${kind==="number"?"TỔNG ĐIỂM":"BIỂU DIỄN ĐIỂM CỘNG"}</text>`;
+      STUDENTS.forEach((name,i)=>{
+        const y=top+40+i*rowH; svg+=`<line x1="60" y1="${y+rowH}" x2="1540" y2="${y+rowH}" stroke="#dbe4f3"/><text x="85" y="${y+28}" class="row">${i+1}</text><text x="180" y="${y+28}" class="row">${esc(name)}</text>`;
+        if(kind==="number") svg+=`<text x="1060" y="${y+28}" class="row" font-weight="700">${scores[i]}</text>`;
+        else { let x=1060; for(let a=0;a<Math.floor(scores[i]/5);a++){svg+=`<rect x="${x}" y="${y+9}" width="22" height="22" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/><line x1="${x}" y1="${y+9}" x2="${x+22}" y2="${y+31}" stroke="#2563eb" stroke-width="2"/>`; x+=29;} for(let a=0;a<scores[i]%5;a++){svg+=`<line x1="${x+3}" y1="${y+9}" x2="${x+3}" y2="${y+31}" stroke="#0f766e" stroke-width="3"/>`;x+=11;} }
+      });
+      svg+=`<text x="80" y="${height-28}" font-size="23" class="head">TỔNG ĐIỂM CỘNG CỦA CẢ LỚP: ${total}${kind==="visual"?" ĐIỂM":""}</text></svg>`;
+      const blob=new Blob([svg],{type:"image/svg+xml"}), url=URL.createObjectURL(blob), img=new Image();
+      img.onload=()=>{ const canvas=document.createElement("canvas"); canvas.width=width; canvas.height=height; canvas.getContext("2d").drawImage(img,0,0); const a=document.createElement("a"); a.href=canvas.toDataURL("image/png"); a.download="tong-hop-diem-cong-"+(kind==="number"?"dang-so":"dang-hinh")+"-"+start+"-"+end+".png"; a.click(); URL.revokeObjectURL(url); };
+      img.src=url;
+    }
+
+    document.addEventListener("DOMContentLoaded",()=>{
+      $("entry-date").value=localISO(); renderEntryRows(); renderHistory(); renderSummary();
+      lucide.createIcons();
+      document.querySelectorAll(".nav-btn").forEach(btn=>btn.addEventListener("click",()=>{
+        const entry=btn.dataset.view==="entry"; $("entry-view").classList.toggle("hidden-view",!entry); $("summary-view").classList.toggle("hidden-view",entry);
+        document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active",b===btn)); if(!entry) renderSummary();
+      }));
+      $("entry-date").addEventListener("change",loadSelectedDate); $("save-scores").addEventListener("click",saveScores);
+      $("close-preview").addEventListener("click",()=>$("history-preview").classList.add("hidden-view"));
+      $("confirm-cancel").addEventListener("click",closeConfirm); $("confirm-accept").addEventListener("click",()=>{ const action=confirmAction; closeConfirm(); if(action) action(); });
+      $("confirm-modal").addEventListener("click",e=>{if(e.target===$("confirm-modal"))closeConfirm();});
+      document.querySelectorAll(".filter-quick").forEach(b=>b.addEventListener("click",()=>setQuickRange(b.dataset.range)));
+      $("summary-start").addEventListener("change",renderSummary); $("summary-end").addEventListener("change",renderSummary);
+      document.querySelectorAll(".tab-btn").forEach(b=>b.addEventListener("click",()=>{activeTab=b.dataset.tab; document.querySelectorAll(".tab-btn").forEach(x=>x.classList.toggle("active",x===b)); $("number-tab-panel").classList.toggle("hidden-view",activeTab!=="number"); $("visual-tab-panel").classList.toggle("hidden-view",activeTab!=="visual");}));
+      $("export-number").addEventListener("click",()=>exportPNG("number")); $("export-visual").addEventListener("click",()=>exportPNG("visual"));
+    });
+  </script>
+ 
+</body></html>
